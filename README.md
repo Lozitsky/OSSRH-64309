@@ -287,11 +287,15 @@
 >
 >JNDIServlet
 >
+>Adminer
+>
 >Total load time: 1m 33s
 >
 >org.apache.naming.NamingContext module
 >
 >java.lang.String ModuleName
+>
+>Hello Servlet 
 >
 >Current Time is: 8:50:55 AM
 >```

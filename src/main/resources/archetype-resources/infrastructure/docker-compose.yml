@@ -38,7 +38,7 @@ services:
     image: mysql:8.0.21
     restart: always
     ports:
-    - '3306:3306'
+    - '3307:3306'
     expose:
       - '3306'
     environment:

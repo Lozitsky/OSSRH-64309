@@ -46,6 +46,8 @@ public class JNDIListServlet extends HttpServlet {
             }
         });
 
+        writer.append("<h3><a href=\"http://localhost:8080/${artifactId}/\"> Hello Servlet </a></h3>\n");
+
         writer.append("<p>Current Time is: " + getCurrentTime() + "</p>\n");
 
         writer.append("</body>");
@@ -110,6 +112,8 @@ public class JNDIListServlet extends HttpServlet {
                         jndiList.add("-  DriverVersion:  '" + metaData.getDriverVersion() + "'");
                         jndiList.add("-  UserName:  '" + metaData.getUserName() + "'");
                         jndiList.add("<h3><a href=\"http://localhost:8080/${artifactId}/JNDIServlet\"> JNDIServlet </a></h3>");
+                        jndiList.add("<h3><a href=\"http://localhost:8088/?server=db&username=admin_db&db=${artifactId}\"> Adminer </a></h3>");
+
 
                         if (valid) {
                             jndiList.add(String.format("Total load time: %dm %ds", timeLeft / 60, timeLeft % 60));
