@@ -215,7 +215,7 @@
 >>### [web-ejb:1.0.2.2](https://repo1.maven.org/maven2/com/github/Lozitsky/web-ejb/1.0.2.2/ "Maven's Repository")
 > ***
 >```text
-> Startup inside Docker containers.
+>Startup inside Docker containers.
 > 
 >Created by docker-compose.yml
 > 
@@ -226,6 +226,7 @@
 >After a few minutes, when the data source is ready, servlet will display information about the data source and create a link to a servlet with data from the database.
 > 
 > Includes TomEE, Mysql, Adminer and hello-world container image
+>```
 > ```bash
 >\$ cd archetype-root
 >\$ mvn clean install
