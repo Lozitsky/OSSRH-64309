@@ -84,53 +84,64 @@ public class JNDIListServlet extends HttpServlet {
         } catch (NamingException e) {
             jndiList.add(e.getMessage());
         }
-        jndiList.addAll(getListContext(ctx));
+        jndiList.addAll(getListContext(ctx, ""));
         return jndiList;
     }
 
-    private List<String> getListContext(Context ctx) {
+
+    private List<String> getListContext(Context ctx, String indent) {
         List<String> jndiList = new ArrayList<>();
         try {
-            NamingEnumeration<Binding> list = ctx.listBindings("");
+            NamingEnumeration<Binding> list = ctx.listBindings(indent);
             while (list.hasMore()) {
-                Binding next = list.next();
-                String className = next.getClassName();
-                String name = next.getName();
-                Object object = next.getObject();
-                jndiList.add(className + " " + name);
+
+                try {
+                    Binding next = list.next();
+                    String className = next.getClassName();
+                    String name = next.getName();
+                    Object object = next.getObject();
+                    jndiList.add(className + " = " + name);
 
 //                if ("MySQLDataSource".equals(name) && object instanceof DataSource) {
-                if (object instanceof DataSource) {
-                    DataSource ds = (DataSource) ctx.lookup("MySQLDataSource");
-                    try (Connection connection = ds.getConnection()) {
-                        boolean valid = connection.isValid(1000);
-                        jndiList.add("-  JDBC Connection is " + (valid ? "valid" : "NOT valid"));
-                        DatabaseMetaData metaData = connection.getMetaData();
-                        jndiList.add("-  URL:  '" + metaData.getURL() + "'");
-                        jndiList.add("-  DatabaseProductName:  '" + metaData.getDatabaseProductName() + "'");
-                        jndiList.add("-  DriverName:  '" + metaData.getDriverName() + "'");
-                        jndiList.add("-  DriverVersion:  '" + metaData.getDriverVersion() + "'");
-                        jndiList.add("-  UserName:  '" + metaData.getUserName() + "'");
-                        jndiList.add("<h3><a href=\"http://localhost:8080/${artifactId}/JNDIServlet\"> JNDIServlet </a></h3>");
-                        jndiList.add("<h3><a href=\"http://localhost:8088/?server=db&username=admin_db&db=${artifactId}\"> Adminer </a></h3>");
+                    if (object instanceof DataSource) {
+                        DataSource ds = (DataSource) ctx.lookup("MySQLDataSource");
+                        try (Connection connection = ds.getConnection()) {
+                            boolean valid = connection.isValid(1000);
+                            jndiList.add(" -  JDBC Connection is " + (valid ? "valid" : "NOT valid"));
+                            DatabaseMetaData metaData = connection.getMetaData();
+                            jndiList.add(" -  URL:  '" + metaData.getURL() + "'");
+                            jndiList.add(" -  DatabaseProductName:  '" + metaData.getDatabaseProductName() + "'");
+                            jndiList.add(" -  DriverName:  '" + metaData.getDriverName() + "'");
+                            jndiList.add(" -  DriverVersion:  '" + metaData.getDriverVersion() + "'");
+                            jndiList.add(" -  UserName:  '" + metaData.getUserName() + "'");
+                            jndiList.add("<h3><a href=\"http://localhost:8080/${artifactId}/JNDIServlet\"> JNDIServlet </a></h3>");
+                            jndiList.add("<h3><a href=\"http://localhost:8088/?server=db&username=admin_db&db=${artifactId}\"> Adminer </a></h3>");
 
+                            if (valid) {
+                                jndiList.add(String.format("Total load time: %dm %ds", timeLeft / 60, timeLeft % 60));
+                            }
+                        } catch (SQLException throwable) {
+                            jndiList.add("MySQL is not ready. Please wait a few minutes... Try the command: 'docker ps' to check the health of the mysql container.");
+                            jndiList.add(throwable.getMessage());
 
-                        if (valid) {
-                            jndiList.add(String.format("Total load time: %dm %ds", timeLeft / 60, timeLeft % 60));
+                            timeLeft = (Optional.of(new Date().getTime() - timeStart.getTime()).orElse(0L)) / 1000;
+                            jndiList.add(String.format("Elapsed time: %dm %ds", timeLeft / 60, timeLeft % 60));
                         }
-                    } catch (SQLException throwable) {
-                        jndiList.add("MySQL is not ready. Please wait a few minutes... Try the command: 'docker ps' to check the health of the mysql container.");
-                        jndiList.add(throwable.getMessage());
-
-                        timeLeft = (Optional.of(new Date().getTime() - timeStart.getTime()).orElse(0L)) / 1000;
-                        jndiList.add(String.format("Elapsed time: %dm %ds", timeLeft / 60, timeLeft % 60));
                     }
-                } else if (object instanceof javax.naming.Context) {
-                    jndiList.addAll(getListContext((Context) object));
+                    if (object instanceof javax.naming.Context) {
+
+                        if (indent == null) {
+                            indent = "";
+                        }
+
+                        jndiList.addAll(getListContext((Context) object, indent + "/"));
+                    }
+                } catch (NamingException e) {
+                    jndiList.add(e.getMessage());
                 }
             }
         } catch (NamingException e) {
-            e.printStackTrace();
+            System.err.println("List error: " + e);
         }
         return jndiList;
     }

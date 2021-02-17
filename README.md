@@ -1,5 +1,6 @@
 # WEB JPA CDI EJB Archetype
-
+>## [web-ejb](https://repo1.maven.org/maven2/com/github/Lozitsky/web-ejb/ "Maven's Repository")
+>___
 
 > #### Prepare the project structure. Define default folders and files.
 > ```bash
@@ -210,7 +211,10 @@
 
 <br><br>
 >## web-ejb:1.0.2
-> 
+> ***
+>>### [web-ejb:1.0.2.2](https://repo1.maven.org/maven2/com/github/Lozitsky/web-ejb/1.0.2.2/ "Maven's Repository")
+> ***
+>```text
 > Startup inside Docker containers.
 > 
 >Created by docker-compose.yml
@@ -230,7 +234,7 @@
 >\$ mvn archetype:generate \
 > -DarchetypeGroupId=com.github.Lozitsky \
 > -DarchetypeArtifactId=web-ejb \
-> -DarchetypeVersion=1.0.2 \
+> -DarchetypeVersion=1.0.2.2 \
 > -DgroupId=com.kirilo \
 > -DartifactId=web_ejb \
 > -Dversion=1.0-SNAPSHOT \
@@ -240,16 +244,28 @@
 >\$ sh mvn-clean-build-up.sh
 >```
 
->Script Automatically builds a project and redirects to the default browser page
+>##### Script Automatically builds a project and redirects to the default browser page
 > 
 >```text
->org.apache.naming.NamingContext comp
+>org.apache.naming.NamingContext = comp
 >
->org.apache.naming.NamingContext com.kirilo.injection.Servlet
+>Name "Resource/comp/ValidatorFactory" not found.
 >
->com.kirilo.injection.HelloBean$$LocalBeanProxy bean
+>org.apache.openejb.resource.GeronimoTransactionManagerFactory$DestroyableTransactionManager = TransactionManager
 >
->org.apache.openejb.resource.jdbc.managed.local.ManagedDataSource MySQLDataSource
+>org.apache.openejb.resource.GeronimoTransactionManagerFactory$DestroyableTransactionManager = TransactionSynchronizationRegistry
+>
+>java.lang.String = ComponentName
+>
+>Name "Resource/comp/BeanManager" not found.
+>
+>Name "Resource/comp/Validator" not found.
+>
+>org.apache.naming.NamingContext = com.kirilo.injection.Servlet
+>
+>com.kirilo.injection.HelloBean$$LocalBeanProxy = bean
+>
+>org.apache.openejb.resource.jdbc.managed.local.ManagedDataSource = MySQLDataSource
 >
 >MySQL is not ready. Please wait a few minutes... Try the command: 'docker ps' to check the health of the mysql container.
 >
@@ -257,21 +273,33 @@
 >
 >Elapsed time: 0m 0s
 >
->org.apache.naming.NamingContext module
+>org.apache.naming.NamingContext = module
 >
->java.lang.String ModuleName
+>java.lang.String = ModuleName
 >
->Current Time is: 8:43:55 AM
+>Current Time is: 0:3:23 PM
 >```
 
 >```text
->org.apache.naming.NamingContext comp
+>org.apache.naming.NamingContext = comp
 >
->org.apache.naming.NamingContext com.kirilo.injection.Servlet
+>Name "Resource/comp/ValidatorFactory" not found.
 >
->com.kirilo.injection.HelloBean$$LocalBeanProxy bean
+>org.apache.openejb.resource.GeronimoTransactionManagerFactory$DestroyableTransactionManager = TransactionManager
 >
->org.apache.openejb.resource.jdbc.managed.local.ManagedDataSource MySQLDataSource
+>org.apache.openejb.resource.GeronimoTransactionManagerFactory$DestroyableTransactionManager = TransactionSynchronizationRegistry
+>
+>java.lang.String = ComponentName
+>
+>Name "Resource/comp/BeanManager" not found.
+>
+>Name "Resource/comp/Validator" not found.
+>
+>org.apache.naming.NamingContext = com.kirilo.injection.Servlet
+>
+>com.kirilo.injection.HelloBean$$LocalBeanProxy = bean
+>
+>org.apache.openejb.resource.jdbc.managed.local.ManagedDataSource = MySQLDataSource
 >
 > - JDBC Connection is valid
 >
@@ -283,22 +311,22 @@
 >
 > - DriverVersion: 'mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)'
 >
-> - UserName: 'admin_db@172.25.0.4'
+> - UserName: 'admin_db@172.25.0.3'
 >
 >JNDIServlet
 >
 >Adminer
 >
->Total load time: 1m 33s
+>Total load time: 1m 6s
 >
->org.apache.naming.NamingContext module
+>org.apache.naming.NamingContext = module
 >
->java.lang.String ModuleName
+>java.lang.String = ModuleName
 >
->Hello Servlet 
+>Hello Servlet
 >
->Current Time is: 8:50:55 AM
+>Current Time is: 0:5:23 PM
 >```
 
-> Click on the 'JNDIServlet' link
+>##### Click on the 'JNDIServlet' link
 > <body><h1>Task details</h1><table cellspacing="10" cellpadding="5" border="1"><tbody><tr><th>ID</th><th>Name</th><th>Description</th><th>Status</th><th>Created date</th><th>Last modified date</th></tr><tr><td>1</td><td>My first task</td><td>The description of my first task</td><td>TODO</td><td>2021-02-09 08:44:40</td><td>2021-02-09 08:44:40</td></tr><tr><td>2</td><td>My second task</td><td>The description of my second task</td><td>TODO</td><td>2021-02-09 08:44:40</td><td>2021-02-09 08:44:40</td></tr><tr><td>3</td><td>My first task</td><td>The description of my first task</td><td>TODO</td><td>2021-02-09 08:45:03</td><td>2021-02-09 08:45:03</td></tr><tr><td>4</td><td>My second task</td><td>The description of my second task</td><td>TODO</td><td>2021-02-09 08:45:03</td><td>2021-02-09 08:45:03</td></tr><tr><td>5</td><td>My first task</td><td>The description of my first task</td><td>TODO</td><td>2021-02-09 08:45:30</td><td>2021-02-09 08:45:30</td></tr><tr><td>6</td><td>My second task</td><td>The description of my second task</td><td>TODO</td><td>2021-02-09 08:45:30</td><td>2021-02-09 08:45:30</td></tr></tbody></table></body>
