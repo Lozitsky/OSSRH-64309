@@ -1,5 +1,5 @@
 # WEB JPA CDI EJB Archetype
->## [web-ejb](https://repo1.maven.org/maven2/com/github/Lozitsky/web-ejb/ "Maven's Repository")
+>## [web-ejb](https://mvnrepository.com/artifact/com.github.Lozitsky/web-ejb "Maven's Repository")
 >___
 
 > #### Prepare the project structure. Define default folders and files.
